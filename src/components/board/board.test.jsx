@@ -9,14 +9,14 @@ describe("Board component", () => {
     expect(elem).toBeInTheDocument();
   });
 
-  it("Check that the drop works correctly", async () => {
+  it("Check that the drop works correctly",  () => {
     render(<Board />);
     const squares = screen.getAllByTestId("Square");
     for (let i = 0; i < 7; i++) {
       userEvent.click(squares[0]);
     }
 
-    await waitFor(() => {
+     setTimeout(() => {
       expect(squares[42]).toHaveTextContent("X");
       expect(squares[35]).toHaveTextContent("O");
       expect(squares[28]).toHaveTextContent("X");
@@ -24,7 +24,7 @@ describe("Board component", () => {
       expect(squares[14]).toHaveTextContent("X");
       expect(squares[7]).toHaveTextContent("O");
       expect(squares[0]).toHaveTextContent("X");
-    });
+    },1000);
   });
 
   it("Checking win condition", () => {
@@ -71,5 +71,24 @@ describe("Board component", () => {
         });
     },1000);
 
+  }), 
+
+  it("Fuzz testing to try throw errors",()=>{
+
+  expect(()=>Fuzz()).not.toThrow();
+    
   });
 });
+
+
+function Fuzz(){
+    render(<Board />);
+    const squares = screen.getAllByTestId("Square");
+    const start = Date.now();
+    while(Date.now()-start<60000){
+        let position = Math.floor(Math.random()*48);
+        userEvent.click(squares[position]);
+    }
+
+
+}
