@@ -48,5 +48,28 @@ describe("Board component", () => {
         });
     },1000);
 
+  }),
+
+  it("Checking up and down win condition",()=>{
+    render(<Board />);
+    const squares = screen.getAllByTestId("Square");
+
+    for (let i = 0; i < 5; i++) {
+    
+        userEvent.click(squares[0]);
+     
+
+ 
+        userEvent.click(squares[1]);
+
+    }
+    setTimeout(()=>{
+        const winners = screen.getAllByTestId("WinningSquare");
+        expect(winners.length).toEqual(4);
+        winners.forEach((w)=>{
+            expect(w).toHaveTextContent("X");
+        });
+    },1000);
+
   });
 });
