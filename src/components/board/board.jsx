@@ -8,7 +8,7 @@ let win = false;
 
 function Square({ value, onSquareClick, isWinningSquare }) {
   let className = isWinningSquare ? "WinningSquare" : "Square";
-  return <button className={className} onClick={onSquareClick}>{value}</button>;
+  return <button data-testid = {className} className={className} onClick={onSquareClick}>{value}</button>;
 
 }
 
@@ -68,7 +68,9 @@ export default function Board() {
   }
 
   return (
-    <>{board}</>
+    <>
+      <div role="Board">{board}</div>
+    </>
   );
 }
 
