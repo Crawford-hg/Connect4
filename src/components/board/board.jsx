@@ -8,7 +8,7 @@ let win = false;
 
 function Square({ value, onSquareClick, isWinningSquare }) {
   let className = isWinningSquare ? "WinningSquare" : "Square";
-  return <button data-testid = {className} className={className} onClick={onSquareClick}>{value}</button>;
+  return <button data-testid={className} className={className} onClick={onSquareClick}>{value}</button>;
 
 }
 
@@ -20,16 +20,16 @@ export default function Board() {
   function handleClick(i) {
     if (win) return;
     let col = i % 7;
-    let currentFree;
-    for (let x = 0; x < 7; x++) {
-      if (!squares[col]) {
-        currentFree = col;
+    let currentFree = 0;
+    for (let x = 6; x >= 0; x--) {
+      if (!squares[col + x * 7]) {
+        currentFree = col + x * 7;
         col += 7;
       }
-      else break;
     }
 
-    if (currentFree) {
+
+    if (currentFree !== null) {
       const nextSquares = squares.slice();
       nextSquares[currentFree] = turn;
       setSquares(nextSquares);
